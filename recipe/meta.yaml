@@ -1,5 +1,5 @@
 {% set name = "gtk" %}
-{% set version = "4.0.3" %}
+{% set version = "4.1.2" %}
 {% set version_majmin = '.'.join(version.split('.', 2)[:2]) %}
 
 package:
@@ -8,7 +8,7 @@ package:
 
 source:
   url: https://download.gnome.org/sources/{{ name }}/{{ version_majmin }}/{{ name }}-{{ version }}.tar.xz
-  sha256: d7c9893725790b50bd9a3bb278856d9d543b44b6b9b951d7b60e7bdecc131890
+  sha256: 33407da437c5e5ac09e7a463ba3bd025da3d80ba1953b8bbe2bce97dd2609677
   patches:
     # https://gitlab.gnome.org/GNOME/gtk/-/merge_requests/3342
     - gdkmacosglcontext.c.patch  # [osx]
@@ -116,12 +116,11 @@ test:
     - test -f $PREFIX/lib/pkgconfig/{{ pc }}.pc  # [unix]
     - if not exist %PREFIX%\\Library\\lib\\pkgconfig\\{{ pc }}.pc exit 1  # [win]
     {% endfor %}
-    
     # check gi typelibs
     {% set gis = ["Gdk-4.0", "Gsk-4.0", "Gtk-4.0"] %}
     {% for gi in gis %}
-    - "test -f $PREFIX/lib/girepository-1.0/{{ gi }}.typelib"  # [unix]
-    - "if not exist %PREFIX%\\Library\\lib\\girepository-1.0\\{{ gi }}.typelib exit 1"   # [win]
+    - test -f $PREFIX/lib/girepository-1.0/{{ gi }}.typelib    # [unix]
+    - if not exist %PREFIX%\Library\lib\girepository-1.0\{{ gi }}.typelib exit 1         # [win]
     {% endfor %}
 
 
