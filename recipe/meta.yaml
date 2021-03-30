@@ -9,9 +9,6 @@ package:
 source:
   url: https://download.gnome.org/sources/{{ name }}/{{ version_majmin }}/{{ name }}-{{ version }}.tar.xz
   sha256: e975f286e911666a79b6bcf486e6f99b0bd9d2b4cc348d19bce487a0b1c97072
-  patches:
-    # https://gitlab.gnome.org/GNOME/gtk/-/merge_requests/3342
-    - gdkmacosglcontext.c.patch  # [osx]
 
 build:
   number: 0
