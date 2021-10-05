@@ -11,7 +11,7 @@ source:
   sha256: 023169775de43f0a1fde066fbc19d78545ea6a7562c1915abde9b8ae4a7309e6
 
 build:
-  number: 0
+  number: 1
   run_exports:
     - {{ pin_subpackage('gtk4', max_pin='x') }}
     # gtk apps need at least a default icon set for fallback
