@@ -24,6 +24,7 @@ set ^"MESON_OPTIONS=^
   -Dintrospection=enabled ^
   -Dbuild-examples=false ^
   -Dbuild-tests=false ^
+  -Dmedia-gstreamer=disabled ^
  ^"
 
 :: configure build using meson
