@@ -22,7 +22,6 @@ if test $(uname) == 'Darwin' ; then
 	meson_config_args+=("-Dmacos-backend=true")
 elif test $(uname) == 'Linux' ; then
 	meson_config_args+=("-Dx11-backend=true")
-	meson_config_args+=("-Dxinerama=enabled")
 fi
 
 # ensure that the post install script is ignored
