@@ -33,14 +33,6 @@ meson setup builddir \
     --buildtype=release \
     --prefix=$PREFIX \
     -Dlibdir=lib \
-    --wrap-mode=nofallback \
-    --force-fallback-for=sassc,libsass
+    --wrap-mode=nofallback
 ninja -v -C builddir -j ${CPU_COUNT}
 ninja -C builddir install -j ${CPU_COUNT}
-
-# cleanup sassc files
-rm $PREFIX/bin/sassc
-rm $PREFIX/lib/libsass*
-rm $PREFIX/lib/pkgconfig/libsass.pc
-rm -r $PREFIX/include/sass
-rm $PREFIX/include/sass*

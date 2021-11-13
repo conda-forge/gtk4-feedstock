@@ -16,8 +16,6 @@ build:
     - {{ pin_subpackage('gtk4', max_pin='x') }}
     # gtk apps need at least a default icon set for fallback
     - adwaita-icon-theme
-  ignore_run_exports_from:
-    - {{ compiler('cxx') }}
   missing_dso_whitelist:
     - /usr/lib/libcups.2.dylib    # [osx]
 
@@ -28,8 +26,6 @@ requirements:
     - gobject-introspection
     - pkg-config
     - {{ compiler('c') }}
-    # sassc needs a C++ compiler
-    - {{ compiler('cxx') }}
   host:
     - cairo
     - epoxy
