@@ -26,6 +26,7 @@ requirements:
     - gobject-introspection
     - pkg-config
     - {{ compiler('c') }}
+    - {{ cdt('mesa-libegl-devel') }}  # [linux]
   host:
     - cairo
     - epoxy
