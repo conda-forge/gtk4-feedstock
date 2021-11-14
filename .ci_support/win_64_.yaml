@@ -6,8 +6,6 @@ channel_sources:
 - conda-forge
 channel_targets:
 - conda-forge main
-cxx_compiler:
-- vs2017
 freetype:
 - '2'
 gdk_pixbuf:
