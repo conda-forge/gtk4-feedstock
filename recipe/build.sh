@@ -13,6 +13,7 @@ meson_config_args=(
     -Dbuild-examples=false
     -Dbuild-tests=false
     -Dwayland-backend=false
+    -Dmedia-gstreamer=disabled
 )
 
 if test $(uname) == 'Darwin' ; then
@@ -21,7 +22,6 @@ if test $(uname) == 'Darwin' ; then
 	meson_config_args+=("-Dmacos-backend=true")
 elif test $(uname) == 'Linux' ; then
 	meson_config_args+=("-Dx11-backend=true")
-	meson_config_args+=("-Dxinerama=enabled")
 fi
 
 # ensure that the post install script is ignored
@@ -33,14 +33,6 @@ meson setup builddir \
     --buildtype=release \
     --prefix=$PREFIX \
     -Dlibdir=lib \
-    --wrap-mode=nofallback \
-    --force-fallback-for=sassc,libsass
+    --wrap-mode=nofallback
 ninja -v -C builddir -j ${CPU_COUNT}
 ninja -C builddir install -j ${CPU_COUNT}
-
-# cleanup sassc files
-rm $PREFIX/bin/sassc
-rm $PREFIX/lib/libsass*
-rm $PREFIX/lib/pkgconfig/libsass.pc
-rm -r $PREFIX/include/sass
-rm $PREFIX/include/sass*

@@ -16,7 +16,6 @@ set ^"MESON_OPTIONS=^
   --prefix="%LIBRARY_PREFIX%" ^
   --default-library=shared ^
   --wrap-mode=nofallback ^
-  --force-fallback-for=sassc,libsass ^
   --buildtype=release ^
   --backend=ninja ^
   -Dgtk_doc=false ^
@@ -24,6 +23,7 @@ set ^"MESON_OPTIONS=^
   -Dintrospection=enabled ^
   -Dbuild-examples=false ^
   -Dbuild-tests=false ^
+  -Dmedia-gstreamer=disabled ^
  ^"
 
 :: configure build using meson
@@ -39,11 +39,3 @@ if errorlevel 1 exit 1
 
 ninja -C builddir install -j %CPU_COUNT%
 if errorlevel 1 exit 1
-
-:: cleanup sassc files
-del %LIBRARY_BIN%\sass.dll
-del %LIBRARY_BIN%\sassc.exe
-del %LIBRARY_LIB%\sass.lib
-del %LIBRARY_LIB%\pkgconfig\libsass.pc
-del /s /q %LIBRARY_INC%\sass*
-rmdir /s /q %LIBRARY_INC%\sass
