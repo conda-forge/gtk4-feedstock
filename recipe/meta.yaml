@@ -34,8 +34,9 @@ requirements:
     - gdk-pixbuf
     - gettext  # [osx]
     - glib
-    - libgraphene
     - harfbuzz
+    - libjpeg-turbo  # [win]
+    - libgraphene
     - libcups  # [linux]
     - libiconv  # [win]
     - pango
