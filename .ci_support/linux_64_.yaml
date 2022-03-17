@@ -1,7 +1,7 @@
 c_compiler:
 - gcc
 c_compiler_version:
-- '9'
+- '10'
 cairo:
 - '1.16'
 cdt_name:
@@ -19,7 +19,7 @@ gdk_pixbuf:
 glib:
 - '2'
 harfbuzz:
-- '3'
+- '4'
 pango:
 - '1.50'
 pin_run_as_build:
