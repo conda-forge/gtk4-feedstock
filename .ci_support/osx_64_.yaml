@@ -23,6 +23,6 @@ harfbuzz:
 macos_machine:
 - x86_64-apple-darwin13.4.0
 pango:
-- '1.48'
+- '1.50'
 target_platform:
 - osx-64

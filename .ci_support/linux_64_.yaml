@@ -21,6 +21,6 @@ glib:
 harfbuzz:
 - '5'
 pango:
-- '1.48'
+- '1.50'
 target_platform:
 - linux-64

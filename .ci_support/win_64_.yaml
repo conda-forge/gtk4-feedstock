@@ -19,6 +19,6 @@ libiconv:
 libjpeg_turbo:
 - '2'
 pango:
-- '1.48'
+- '1.50'
 target_platform:
 - win-64
