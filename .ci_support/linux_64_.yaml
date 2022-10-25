@@ -3,7 +3,7 @@ c_compiler:
 c_compiler_version:
 - '10'
 cairo:
-- '1.16'
+- '1'
 cdt_name:
 - cos6
 channel_sources:
@@ -22,14 +22,5 @@ harfbuzz:
 - '5'
 pango:
 - '1.50'
-pin_run_as_build:
-  cairo:
-    max_pin: x.x
-  freetype:
-    max_pin: x
-  harfbuzz:
-    max_pin: x
-  pango:
-    max_pin: x.x
 target_platform:
 - linux-64
