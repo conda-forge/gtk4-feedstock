@@ -1,5 +1,5 @@
 {% set name = "gtk" %}
-{% set version = "4.8.2" %}
+{% set version = "4.9.3" %}
 {% set version_majmin = '.'.join(version.split('.', 2)[:2]) %}
 
 package:
@@ -8,10 +8,10 @@ package:
 
 source:
   url: https://download.gnome.org/sources/{{ name }}/{{ version_majmin }}/{{ name }}-{{ version }}.tar.xz
-  sha256: 85b7a160b6e02eafa4e7d38f046f8720fab537d3fe73c01c864333a983a692a9
+  sha256: c701702f89318d8b08f5da202c99b08436e4e7c96e1f1f1b9db42fe63fe3b637
 
 build:
-  number: 1
+  number: 0
   run_exports:
     - {{ pin_subpackage('gtk4', max_pin='x') }}
     # gtk apps need at least a default icon set for fallback
