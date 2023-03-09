@@ -18,6 +18,10 @@ libiconv:
 - '1'
 libjpeg_turbo:
 - 2.1.5
+libpng:
+- '1.6'
+libtiff:
+- '4.4'
 pango:
 - '1.50'
 target_platform:
