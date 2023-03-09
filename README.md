@@ -1,11 +1,11 @@
-About gtk4
-==========
+About gtk4-feedstock
+====================
+
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/gtk4-feedstock/blob/main/LICENSE.txt)
 
 Home: http://www.gtk.org/
 
 Package license: LGPL-2.0-or-later
-
-Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/gtk4-feedstock/blob/main/LICENSE.txt)
 
 Summary: Version 4 of the Gtk+ graphical toolkit
 
