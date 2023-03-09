@@ -35,7 +35,8 @@ requirements:
     - gettext  # [osx]
     - glib
     - harfbuzz
-    - libjpeg-turbo  # [win]
+    - libjpeg-turbo
+    - zlib
     - libgraphene
     - libcups  # [linux]
     - libiconv  # [win]
