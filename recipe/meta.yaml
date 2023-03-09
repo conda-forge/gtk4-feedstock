@@ -35,6 +35,8 @@ requirements:
     - gettext  # [osx]
     - glib
     - harfbuzz
+    - libtiff
+    - libpng
     - libjpeg-turbo
     - zlib
     - libgraphene
