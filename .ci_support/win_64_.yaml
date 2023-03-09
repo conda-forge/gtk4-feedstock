@@ -22,3 +22,5 @@ pango:
 - '1.50'
 target_platform:
 - win-64
+zlib:
+- '1.2'

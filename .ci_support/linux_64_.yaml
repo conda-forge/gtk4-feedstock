@@ -20,7 +20,11 @@ glib:
 - '2'
 harfbuzz:
 - '6'
+libjpeg_turbo:
+- 2.1.5
 pango:
 - '1.50'
 target_platform:
 - linux-64
+zlib:
+- '1.2'
