@@ -11,7 +11,7 @@ source:
   sha256: 85b7a160b6e02eafa4e7d38f046f8720fab537d3fe73c01c864333a983a692a9
 
 build:
-  number: 1
+  number: 2
   run_exports:
     - {{ pin_subpackage('gtk4', max_pin='x') }}
     # gtk apps need at least a default icon set for fallback
@@ -35,7 +35,10 @@ requirements:
     - gettext  # [osx]
     - glib
     - harfbuzz
-    - libjpeg-turbo  # [win]
+    - libtiff
+    - libpng
+    - libjpeg-turbo
+    - zlib
     - libgraphene
     - libcups  # [linux]
     - libiconv  # [win]

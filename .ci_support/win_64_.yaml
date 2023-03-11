@@ -17,8 +17,14 @@ harfbuzz:
 libiconv:
 - '1'
 libjpeg_turbo:
-- '2'
+- 2.1.5
+libpng:
+- '1.6'
+libtiff:
+- '4.5'
 pango:
 - '1.50'
 target_platform:
 - win-64
+zlib:
+- '1.2'
