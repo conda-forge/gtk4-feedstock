@@ -9,6 +9,8 @@ package:
 source:
   url: https://download.gnome.org/sources/{{ name }}/{{ version_majmin }}/{{ name }}-{{ version }}.tar.xz
   sha256: e8fcac04bc7715b9da667c911a5ee8f262e200d1d6a50adf23645ca8cfcd0311
+  patches:
+    - macos-before-10.13.patch  # [osx]
 
 build:
   number: 0

@@ -1,0 +1,25 @@
+diff --git a/gdk/macos/gdkmacosclipboard-private.h b/gdk/macos/gdkmacosclipboard-private.h
+index ef70ee3..1cc22ef 100644
+--- a/gdk/macos/gdkmacosclipboard-private.h
++++ b/gdk/macos/gdkmacosclipboard-private.h
+@@ -24,7 +24,6 @@
+ 
+ #include "gdkclipboardprivate.h"
+ #include "gdkmacosdisplay-private.h"
+-#include "gdkmacospasteboard-private.h"
+ 
+ G_BEGIN_DECLS
+ 
+@@ -32,6 +31,12 @@ G_BEGIN_DECLS
+ typedef NSString *NSPasteboardType;
+ #endif
+ 
++G_END_DECLS
++
++#include "gdkmacospasteboard-private.h"
++
++G_BEGIN_DECLS
++
+ #define GDK_TYPE_MACOS_CLIPBOARD (_gdk_macos_clipboard_get_type())
+ 
+ G_DECLARE_FINAL_TYPE (GdkMacosClipboard, _gdk_macos_clipboard, GDK, MACOS_CLIPBOARD, GdkClipboard)
