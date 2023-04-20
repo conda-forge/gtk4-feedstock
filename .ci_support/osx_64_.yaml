@@ -5,7 +5,7 @@ MACOSX_SDK_VERSION:
 c_compiler:
 - clang
 c_compiler_version:
-- '14'
+- '15'
 cairo:
 - '1'
 channel_sources:
@@ -19,7 +19,7 @@ gdk_pixbuf:
 glib:
 - '2'
 harfbuzz:
-- '6'
+- '7'
 libjpeg_turbo:
 - 2.1.5
 libpng:
