@@ -1,5 +1,5 @@
 {% set name = "gtk" %}
-{% set version = "4.12.1" %}
+{% set version = "4.13.0" %}
 {% set version_majmin = '.'.join(version.split('.', 2)[:2]) %}
 
 package:
@@ -8,7 +8,7 @@ package:
 
 source:
   url: https://download.gnome.org/sources/{{ name }}/{{ version_majmin }}/{{ name }}-{{ version }}.tar.xz
-  sha256: b8b61d6cf94fac64bf3a0bfc7af137c9dd2f8360033fdeb0cfe9612b77a99a72
+  sha256: 0e2e928a271ac5ef9c95d891a2b9a8c46df9598d12efd9ccfa31695e88cab6aa
   patches:
     - macos-before-10.13.patch  # [osx]
     # compile issue fixed in https://gitlab.gnome.org/GNOME/gtk/-/merge_requests/6208
