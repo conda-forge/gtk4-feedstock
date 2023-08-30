@@ -1,0 +1,34 @@
+MACOSX_DEPLOYMENT_TARGET:
+- '11.0'
+c_compiler:
+- clang
+c_compiler_version:
+- '15'
+cairo:
+- '1'
+channel_sources:
+- conda-forge
+channel_targets:
+- conda-forge main
+freetype:
+- '2'
+gdk_pixbuf:
+- '2'
+glib:
+- '2'
+harfbuzz:
+- '8'
+libjpeg_turbo:
+- 2.1.5
+libpng:
+- '1.6'
+libtiff:
+- '4.5'
+macos_machine:
+- arm64-apple-darwin20.0.0
+pango:
+- '1.50'
+target_platform:
+- osx-arm64
+zlib:
+- '1.2'
