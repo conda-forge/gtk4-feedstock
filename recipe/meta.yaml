@@ -32,6 +32,19 @@ requirements:
     - pkg-config
     - {{ compiler('c') }}
     - {{ cdt('mesa-libegl-devel') }}  # [linux]
+    - cairo  # [build_platform != target_platform]
+    - epoxy  # [build_platform != target_platform]
+    - freetype  # [build_platform != target_platform]
+    - gdk-pixbuf  # [build_platform != target_platform]
+    - gettext  # [build_platform != target_platform]
+    - glib  # [build_platform != target_platform]
+    - harfbuzz  # [build_platform != target_platform]
+    - libtiff  # [build_platform != target_platform]
+    - libpng  # [build_platform != target_platform]
+    - libjpeg-turbo  # [build_platform != target_platform]
+    - zlib  # [build_platform != target_platform]
+    - libgraphene  # [build_platform != target_platform]
+    - pango  # [build_platform != target_platform]
   host:
     - cairo
     - epoxy
