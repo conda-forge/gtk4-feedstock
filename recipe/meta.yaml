@@ -29,6 +29,7 @@ requirements:
     - meson
     - ninja
     - gobject-introspection
+    - packaging  # workaround: this is needed for glib's gdbus-codegen
     - pkg-config
     - {{ compiler('c') }}
     - {{ stdlib("c") }}
