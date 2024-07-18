@@ -77,7 +77,6 @@ meson setup builddir \
     ${MESON_ARGS} \
     --default-library=shared \
     "${meson_config_args[@]}" \
-    --buildtype=release \
     --prefix=$PREFIX \
     -Dlibdir=lib \
     --wrap-mode=nofallback \
