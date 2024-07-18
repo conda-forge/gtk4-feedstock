@@ -25,7 +25,7 @@ libpng:
 libtiff:
 - '4.6'
 pango:
-- '1.50'
+- '1'
 target_platform:
 - win-64
 zlib:
