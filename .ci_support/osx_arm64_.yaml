@@ -1,9 +1,15 @@
 MACOSX_DEPLOYMENT_TARGET:
 - '11.0'
+MACOSX_SDK_VERSION:
+- '11.0'
 c_compiler:
 - clang
 c_compiler_version:
-- '15'
+- '16'
+c_stdlib:
+- macosx_deployment_target
+c_stdlib_version:
+- '11.0'
 cairo:
 - '1'
 channel_sources:
@@ -17,7 +23,7 @@ gdk_pixbuf:
 glib:
 - '2'
 harfbuzz:
-- '8'
+- '9'
 libjpeg_turbo:
 - '3'
 libpng:
@@ -27,8 +33,8 @@ libtiff:
 macos_machine:
 - arm64-apple-darwin20.0.0
 pango:
-- '1.50'
+- '1'
 target_platform:
 - osx-arm64
 zlib:
-- '1.2'
+- '1'

@@ -1,5 +1,7 @@
 c_compiler:
 - vs2019
+c_stdlib:
+- vs
 cairo:
 - '1'
 channel_sources:
@@ -13,7 +15,7 @@ gdk_pixbuf:
 glib:
 - '2'
 harfbuzz:
-- '8'
+- '9'
 libiconv:
 - '1'
 libjpeg_turbo:
@@ -23,8 +25,8 @@ libpng:
 libtiff:
 - '4.6'
 pango:
-- '1.50'
+- '1'
 target_platform:
 - win-64
 zlib:
-- '1.2'
+- '1'
