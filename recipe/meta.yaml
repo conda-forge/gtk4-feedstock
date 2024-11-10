@@ -1,5 +1,5 @@
 {% set name = "gtk" %}
-{% set version = "4.12.1" %}
+{% set version = "4.15.4" %}
 {% set version_majmin = '.'.join(version.split('.', 2)[:2]) %}
 
 package:
@@ -8,7 +8,7 @@ package:
 
 source:
   url: https://download.gnome.org/sources/{{ name }}/{{ version_majmin }}/{{ name }}-{{ version }}.tar.xz
-  sha256: b8b61d6cf94fac64bf3a0bfc7af137c9dd2f8360033fdeb0cfe9612b77a99a72
+  sha256: 86e3093a9d4a696f59cd30f0f81cdd1737272cbd3c48a4556311c38d06512c1b
   patches:
     - macos-before-10.13.patch  # [osx]
     # compile issue fixed in https://gitlab.gnome.org/GNOME/gtk/-/merge_requests/6208
@@ -16,7 +16,7 @@ source:
     - macos-backport-6208.patch  # [osx]
 
 build:
-  number: 4
+  number: 0
   run_exports:
     - {{ pin_subpackage('gtk4', max_pin='x') }}
     # gtk apps need at least a default icon set for fallback
