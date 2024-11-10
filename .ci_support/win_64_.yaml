@@ -23,10 +23,12 @@ libjpeg_turbo:
 libpng:
 - '1.6'
 libtiff:
-- '4.6'
+- '4.7'
 pango:
 - '1'
 target_platform:
 - win-64
+tk:
+- '8.6'
 zlib:
 - '1'
