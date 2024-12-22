@@ -22,6 +22,7 @@ meson_config_args=(
     -Dbuild-tests=false
     -Dwayland-backend=false
     -Dmedia-gstreamer=disabled
+    -Dvulkan=disabled
 )
 
 if test $(uname) == 'Darwin' ; then

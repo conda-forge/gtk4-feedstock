@@ -1,5 +1,5 @@
 {% set name = "gtk" %}
-{% set version = "4.12.1" %}
+{% set version = "4.14.1" %}
 {% set version_majmin = '.'.join(version.split('.', 2)[:2]) %}
 
 package:
@@ -8,15 +8,10 @@ package:
 
 source:
   url: https://download.gnome.org/sources/{{ name }}/{{ version_majmin }}/{{ name }}-{{ version }}.tar.xz
-  sha256: b8b61d6cf94fac64bf3a0bfc7af137c9dd2f8360033fdeb0cfe9612b77a99a72
-  patches:
-    - macos-before-10.13.patch  # [osx]
-    # compile issue fixed in https://gitlab.gnome.org/GNOME/gtk/-/merge_requests/6208
-    # but it seems that this fix won't make it into the 4.12 series
-    - macos-backport-6208.patch  # [osx]
+  sha256: fcefb3f132f8cc4711a9efa5b353c9ae9bb5eeff0246fa74dbc2f2f839b9e308
 
 build:
-  number: 5
+  number: 0
   run_exports:
     - {{ pin_subpackage('gtk4', max_pin='x') }}
     # gtk apps need at least a default icon set for fallback
@@ -47,6 +42,7 @@ requirements:
     - gettext  # [build_platform != target_platform]
     - glib  # [build_platform != target_platform]
     - harfbuzz  # [build_platform != target_platform]
+    - libdrm  # [linux and (build_platform != target_platform)]
     - libtiff  # [build_platform != target_platform]
     - libpng  # [build_platform != target_platform]
     - libjpeg-turbo  # [build_platform != target_platform]
@@ -70,6 +66,7 @@ requirements:
     - zlib
     - libgraphene
     - libcups  # [linux]
+    - libdrm  # [linux]
     - libiconv  # [win]
     - pango
     - xorg-libice  # [linux]

@@ -16,6 +16,8 @@ channel_sources:
 - conda-forge
 channel_targets:
 - conda-forge main
+expat:
+- '2'
 freetype:
 - '2'
 gdk_pixbuf:
@@ -26,6 +28,8 @@ harfbuzz:
 - '10'
 libjpeg_turbo:
 - '3'
+liblzma_devel:
+- '5'
 libpng:
 - '1.6'
 libtiff:
