@@ -9,11 +9,6 @@ package:
 source:
   url: https://download.gnome.org/sources/{{ name }}/{{ version_majmin }}/{{ name }}-{{ version }}.tar.xz
   sha256: fcefb3f132f8cc4711a9efa5b353c9ae9bb5eeff0246fa74dbc2f2f839b9e308
-  patches:
-    - macos-before-10.13.patch  # [osx]
-    # compile issue fixed in https://gitlab.gnome.org/GNOME/gtk/-/merge_requests/6208
-    # but it seems that this fix won't make it into the 4.12 series
-    - macos-backport-6208.patch  # [osx]
 
 build:
   number: 0
