@@ -6,6 +6,14 @@ setlocal EnableDelayedExpansion
 set "PKG_CONFIG_PATH=%LIBRARY_LIB%\pkgconfig;%LIBRARY_PREFIX%\share\pkgconfig;%BUILD_PREFIX%\Library\lib\pkgconfig"
 
 set "XDG_DATA_DIRS=%XDG_DATA_DIRS%;%LIBRARY_PREFIX%\share"
+ 
+:: By default Meson tries to run the glib tools with the %BUILD_PREFIX% Python,
+:: which fails. In order to override this, we need to use a Meson machine file,
+:: because otherwise Meson prioritizes the results from the glib-2.0 pkg-config
+:: file, which don't work.
+echo [binaries] >native_file.txt
+echo glib-mkenums = ['%PREFIX%\python.exe', '%LIBRARY_PREFIX%\bin\glib-mkenums'] >>native_file.txt
+echo glib-genmarshal = ['%PREFIX%\python.exe', '%LIBRARY_PREFIX%\bin\glib-genmarshal'] >>native_file.txt
 
 :: ensure that the post install script is ignored
 set "DESTDIR=%BUILD_PREFIX:~0,3%"
@@ -18,6 +26,7 @@ set ^"MESON_OPTIONS=^
   --wrap-mode=nofallback ^
   --buildtype=release ^
   --backend=ninja ^
+  --native-file=native_file.txt ^
   -Dgtk_doc=false ^
   -Dman-pages=false ^
   -Dintrospection=enabled ^
