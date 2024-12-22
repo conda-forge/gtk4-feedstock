@@ -42,6 +42,7 @@ requirements:
     - gettext  # [build_platform != target_platform]
     - glib  # [build_platform != target_platform]
     - harfbuzz  # [build_platform != target_platform]
+    - libdrm  # [linux and (build_platform != target_platform)]
     - libtiff  # [build_platform != target_platform]
     - libpng  # [build_platform != target_platform]
     - libjpeg-turbo  # [build_platform != target_platform]
@@ -65,6 +66,7 @@ requirements:
     - zlib
     - libgraphene
     - libcups  # [linux]
+    - libdrm  # [linux]
     - libiconv  # [win]
     - pango
     - xorg-libice  # [linux]
