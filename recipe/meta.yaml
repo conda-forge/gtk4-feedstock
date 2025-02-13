@@ -1,5 +1,5 @@
 {% set name = "gtk" %}
-{% set version = "4.14.1" %}
+{% set version = "4.15.6" %}
 {% set version_majmin = '.'.join(version.split('.', 2)[:2]) %}
 
 package:
@@ -8,7 +8,7 @@ package:
 
 source:
   url: https://download.gnome.org/sources/{{ name }}/{{ version_majmin }}/{{ name }}-{{ version }}.tar.xz
-  sha256: fcefb3f132f8cc4711a9efa5b353c9ae9bb5eeff0246fa74dbc2f2f839b9e308
+  sha256: 959ae618ae15e4f2c178b9bec48e02dc2b08659d748351290c755a578a5c4371
 
 build:
   number: 0
