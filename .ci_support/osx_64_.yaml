@@ -25,7 +25,7 @@ gdk_pixbuf:
 glib:
 - '2'
 harfbuzz:
-- '11'
+- 11.0.1
 libjpeg_turbo:
 - '3'
 liblzma_devel:
