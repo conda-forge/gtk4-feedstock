@@ -50,6 +50,7 @@ requirements:
     - liblzma-devel  # [build_platform != target_platform]
     - zlib  # [build_platform != target_platform]
     - libgraphene  # [build_platform != target_platform]
+    - librsvg  # [build_platform != target_platform]
     - pango  # [build_platform != target_platform]
   host:
     - cairo
@@ -69,6 +70,7 @@ requirements:
     - libcups  # [linux]
     - libdrm  # [linux]
     - libiconv  # [win]
+    - librsvg
     - pango
     - xorg-libice  # [linux]
     - xorg-libsm  # [linux]
