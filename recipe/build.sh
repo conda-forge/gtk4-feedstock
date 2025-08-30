@@ -20,6 +20,7 @@ meson_config_args=(
     -Dintrospection=enabled
     -Dbuild-examples=false
     -Dbuild-tests=false
+    -Dbuild-testsuite=false
     -Dwayland-backend=false
     -Dmedia-gstreamer=disabled
     -Dvulkan=disabled

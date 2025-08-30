@@ -32,6 +32,7 @@ set ^"MESON_OPTIONS=^
   -Dintrospection=enabled ^
   -Dbuild-examples=false ^
   -Dbuild-tests=false ^
+  -Dbuild-testsuite=false ^
   -Dmedia-gstreamer=disabled ^
   -Dvulkan=disabled ^
  ^"
