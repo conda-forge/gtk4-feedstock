@@ -36,6 +36,8 @@ liblzma_devel:
 - '5'
 libpng:
 - '1.6'
+librsvg:
+- '2'
 libtiff:
 - '4.7'
 macos_machine:
