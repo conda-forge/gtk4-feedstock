@@ -23,6 +23,8 @@ build:
     # don't depend on these libraries directly:
     - libexpat
     - liblzma
+  ignore_run_exports_from:
+    - libxml2-devel
 
 requirements:
   build:
@@ -51,6 +53,7 @@ requirements:
     - zlib  # [build_platform != target_platform]
     - libgraphene  # [build_platform != target_platform]
     - librsvg  # [build_platform != target_platform]
+    - libxml2-devel  # [build_platform != target_platform]
     - pango  # [build_platform != target_platform]
   host:
     - cairo
@@ -71,6 +74,7 @@ requirements:
     - libdrm  # [linux]
     - libiconv  # [win]
     - librsvg
+    - libxml2-devel
     - pango
     - xorg-libice  # [linux]
     - xorg-libsm  # [linux]
