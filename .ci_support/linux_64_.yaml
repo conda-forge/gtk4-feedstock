@@ -40,6 +40,8 @@ librsvg:
 - '2'
 libtiff:
 - '4.7'
+libxml2_devel:
+- '2.13'
 pango:
 - '1'
 target_platform:
