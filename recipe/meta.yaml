@@ -1,5 +1,5 @@
 {% set name = "gtk" %}
-{% set version = "4.14.1" %}
+{% set version = "4.20.0" %}
 {% set version_majmin = '.'.join(version.split('.', 2)[:2]) %}
 
 package:
@@ -8,10 +8,12 @@ package:
 
 source:
   url: https://download.gnome.org/sources/{{ name }}/{{ version_majmin }}/{{ name }}-{{ version }}.tar.xz
-  sha256: fcefb3f132f8cc4711a9efa5b353c9ae9bb5eeff0246fa74dbc2f2f839b9e308
+  sha256: 79e51e62f7f0cff32904569b0cebc96297d0ebfafa6de8172073c69ce0391a98
+  patches:
+    - 0001-meson-Make-print-cups-option-gate-inclusion-even-whe.patch
 
 build:
-  number: 2
+  number: 0
   run_exports:
     - {{ pin_subpackage('gtk4', max_pin='x') }}
     # gtk apps need at least a default icon set for fallback
@@ -23,6 +25,8 @@ build:
     # don't depend on these libraries directly:
     - libexpat
     - liblzma
+  ignore_run_exports_from:
+    - libxml2-devel
 
 requirements:
   build:
@@ -50,6 +54,8 @@ requirements:
     - liblzma-devel  # [build_platform != target_platform]
     - zlib  # [build_platform != target_platform]
     - libgraphene  # [build_platform != target_platform]
+    - librsvg  # [build_platform != target_platform]
+    - libxml2-devel  # [build_platform != target_platform]
     - pango  # [build_platform != target_platform]
   host:
     - cairo
@@ -69,6 +75,8 @@ requirements:
     - libcups  # [linux]
     - libdrm  # [linux]
     - libiconv  # [win]
+    - librsvg
+    - libxml2-devel
     - pango
     - xorg-libice  # [linux]
     - xorg-libsm  # [linux]

@@ -15,11 +15,12 @@ export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$BUILD_PREFIX/lib/pkgconfig
 export XDG_DATA_DIRS=${XDG_DATA_DIRS}:$PREFIX/share
 
 meson_config_args=(
-    -Dgtk_doc=false
+    -Ddocumentation=false
     -Dman-pages=false
     -Dintrospection=enabled
     -Dbuild-examples=false
     -Dbuild-tests=false
+    -Dbuild-testsuite=false
     -Dwayland-backend=false
     -Dmedia-gstreamer=disabled
     -Dvulkan=disabled
