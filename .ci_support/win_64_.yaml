@@ -33,7 +33,7 @@ librsvg:
 libtiff:
 - '4.7'
 libxml2_devel:
-- '2.13'
+- '2.14'
 pango:
 - '1'
 target_platform:

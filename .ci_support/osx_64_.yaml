@@ -41,7 +41,7 @@ librsvg:
 libtiff:
 - '4.7'
 libxml2_devel:
-- '2.13'
+- '2.14'
 macos_machine:
 - x86_64-apple-darwin13.4.0
 pango:
