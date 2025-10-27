@@ -9,6 +9,8 @@ package:
 source:
   url: https://download.gnome.org/sources/{{ name }}/{{ version_majmin }}/{{ name }}-{{ version }}.tar.xz
   sha256: 79e51e62f7f0cff32904569b0cebc96297d0ebfafa6de8172073c69ce0391a98
+  patches:
+    - 0001-meson-Make-print-cups-option-gate-inclusion-even-whe.patch
 
 build:
   number: 0
