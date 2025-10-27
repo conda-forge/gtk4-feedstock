@@ -6,7 +6,7 @@ setlocal EnableDelayedExpansion
 set "PKG_CONFIG_PATH=%LIBRARY_LIB%\pkgconfig;%LIBRARY_PREFIX%\share\pkgconfig;%BUILD_PREFIX%\Library\lib\pkgconfig"
 
 set "XDG_DATA_DIRS=%XDG_DATA_DIRS%;%LIBRARY_PREFIX%\share"
- 
+
 :: By default Meson tries to run the glib tools with the %BUILD_PREFIX% Python,
 :: which fails. In order to override this, we need to use a Meson machine file,
 :: because otherwise Meson prioritizes the results from the glib-2.0 pkg-config
@@ -24,6 +24,7 @@ set ^"MESON_OPTIONS=^
   --prefix="%LIBRARY_PREFIX%" ^
   --default-library=shared ^
   --wrap-mode=nofallback ^
+  --force-fallback-for=DirectX-Headers ^
   --buildtype=release ^
   --backend=ninja ^
   --native-file=native_file.txt ^
