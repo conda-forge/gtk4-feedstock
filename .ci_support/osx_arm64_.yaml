@@ -28,8 +28,6 @@ gdk_pixbuf:
 - '2'
 glib:
 - '2'
-harfbuzz:
-- '11'
 libjpeg_turbo:
 - '3'
 liblzma_devel:

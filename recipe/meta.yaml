@@ -1,5 +1,5 @@
 {% set name = "gtk" %}
-{% set version = "4.20.0" %}
+{% set version = "4.20.2" %}
 {% set version_majmin = '.'.join(version.split('.', 2)[:2]) %}
 
 package:
@@ -8,7 +8,7 @@ package:
 
 source:
   url: https://download.gnome.org/sources/{{ name }}/{{ version_majmin }}/{{ name }}-{{ version }}.tar.xz
-  sha256: 79e51e62f7f0cff32904569b0cebc96297d0ebfafa6de8172073c69ce0391a98
+  sha256: 5e8240edecafaff2b8baf4663bdceaa668ef10a207bee4d7f90e010e10bddc5c
   patches:
     - 0001-meson-Make-print-cups-option-gate-inclusion-even-whe.patch
 
