@@ -21,7 +21,7 @@ meson_config_args=(
     -Dbuild-examples=false
     -Dbuild-tests=false
     -Dbuild-testsuite=false
-    -Dwayland-backend=false
+    -Dwayland-backend=true
     -Dmedia-gstreamer=disabled
     -Dvulkan=disabled
 )

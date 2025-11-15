@@ -13,7 +13,7 @@ source:
     - 0001-meson-Make-print-cups-option-gate-inclusion-even-whe.patch
 
 build:
-  number: 0
+  number: 1
   run_exports:
     - {{ pin_subpackage('gtk4', max_pin='x') }}
     # gtk apps need at least a default icon set for fallback
