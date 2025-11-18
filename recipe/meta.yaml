@@ -76,6 +76,7 @@ requirements:
     - libdrm  # [linux]
     - libiconv  # [win]
     - librsvg
+    - libxkbcommon  # [linux]
     - libxml2-devel
     - pango
     - xorg-libice  # [linux]
