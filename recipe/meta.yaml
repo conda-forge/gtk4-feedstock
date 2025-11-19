@@ -80,6 +80,7 @@ requirements:
     - libxml2-devel
     - pango
     - wayland  # [linux]
+    - wayland-protocols  # [linux]
     - xorg-libice  # [linux]
     - xorg-libsm  # [linux]
     - xorg-libx11  # [linux]
