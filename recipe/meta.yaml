@@ -11,7 +11,7 @@ source:
   sha256: 2873f2903088a66c71173ea2ed85ffae266a66b972c3a4842bbb2f6f187ec153
 
 build:
-  number: 0
+  number: 1
   run_exports:
     - {{ pin_subpackage('gtk4', max_pin='x') }}
     # gtk apps need at least a default icon set for fallback
@@ -74,8 +74,11 @@ requirements:
     - libdrm  # [linux]
     - libiconv  # [win]
     - librsvg
+    - libxkbcommon  # [linux]
     - libxml2-devel
     - pango
+    - wayland  # [linux]
+    - wayland-protocols  # [linux]
     - xorg-libice  # [linux]
     - xorg-libsm  # [linux]
     - xorg-libx11  # [linux]
