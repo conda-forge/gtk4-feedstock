@@ -60,6 +60,8 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" == "1" ]]; then
         --prefix=$BUILD_PREFIX \
         -Dlibdir=lib \
         --wrap-mode=nofallback \
+        -Dx11-backend=false \
+        -Dwayland-backend=false \
         || (cat native-build/meson-logs/meson-log.txt; false)
 
     # print full meson configuration
