@@ -36,7 +36,7 @@ requirements:
     - {{ compiler('c') }}
     - {{ stdlib("c") }}
     - {{ compiler("cxx") }}
-    - {{ cdt('mesa-libegl-devel') }}  # [linux]
+    - libegl-devel  # [linux]
     - cairo  # [build_platform != target_platform]
     - expat  # [build_platform != target_platform]
     - epoxy  # [build_platform != target_platform]
