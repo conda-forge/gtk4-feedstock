@@ -49,6 +49,12 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" == "1" ]]; then
     export LDFLAGS=${LDFLAGS//$PREFIX/$BUILD_PREFIX}
     export PKG_CONFIG_PATH=${BUILD_PREFIX}/lib/pkgconfig
 
+    cat <<EOF > $SRC_DIR/native_file.txt
+[binaries]
+ld = '$($CC_FOR_BUILD -print-prog-name=ld)'
+objcopy = '$($CC_FOR_BUILD -print-prog-name=objcopy)'
+EOF
+
     # Unset them as we're ok with builds that are either slow or non-portable
     unset CFLAGS
     unset CPPFLAGS
@@ -56,6 +62,7 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" == "1" ]]; then
 
     meson setup native-build \
         "${meson_config_args[@]}" \
+        --native-file=$SRC_DIR/native_file.txt \
         --buildtype=release \
         --prefix=$BUILD_PREFIX \
         -Dlibdir=lib \
