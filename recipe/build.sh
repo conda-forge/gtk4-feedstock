@@ -54,8 +54,26 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" == "1" ]]; then
     unset CPPFLAGS
     export host_alias=$build_alias
 
+    native_extra_args=()
+    if test $(uname) == 'Linux' ; then
+      # On Linux, the x11/wayland libs are only in $PREFIX (host arch), not
+      # $BUILD_PREFIX, so disable those backends and use broadway instead.
+      cat <<EOF > $SRC_DIR/native_file.txt
+[binaries]
+ld = '$($CC_FOR_BUILD -print-prog-name=ld)'
+objcopy = '$($CC_FOR_BUILD -print-prog-name=objcopy)'
+EOF
+      native_extra_args+=(
+        --native-file=$SRC_DIR/native_file.txt
+        -Dx11-backend=false
+        -Dwayland-backend=false
+        -Dbroadway-backend=true
+      )
+    fi
+
     meson setup native-build \
         "${meson_config_args[@]}" \
+        "${native_extra_args[@]}" \
         --buildtype=release \
         --prefix=$BUILD_PREFIX \
         -Dlibdir=lib \
@@ -71,8 +89,15 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" == "1" ]]; then
     export GI_CROSS_LAUNCHER=$BUILD_PREFIX/libexec/gi-cross-launcher-save.sh
     ninja -v -C native-build -j ${CPU_COUNT}
     ninja -C native-build install -j ${CPU_COUNT}
+
+    # Store generated introspection data for the cross build
+    mkdir -p introspection/lib
+    cp -ap $BUILD_PREFIX/lib/girepository-1.0 introspection/lib
+    mkdir -p introspection/share
+    cp -ap $BUILD_PREFIX/share/gir-1.0 introspection/share
   )
-  export GI_CROSS_LAUNCHER=$BUILD_PREFIX/libexec/gi-cross-launcher-load.sh
+
+  meson_config_args+=("-Dintrospection=disabled")
 fi
 
 meson setup builddir \
@@ -88,4 +113,10 @@ meson setup builddir \
 meson configure builddir
 ninja -v -C builddir -j ${CPU_COUNT}
 ninja -C builddir install -j ${CPU_COUNT}
+
+if [[ "$CONDA_BUILD_CROSS_COMPILATION" == "1" ]]; then
+  # Install GIR/typelib files from the native build
+  cp -ap introspection/lib/girepository-1.0 $PREFIX/lib
+  cp -ap introspection/share/gir-1.0 $PREFIX/share
+fi
 
