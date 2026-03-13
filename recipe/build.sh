@@ -36,6 +36,9 @@ fi
 
 # ensure that the post install script is ignored
 export DESTDIR="/"
+# stub out update-mime-database
+printf '#!/bin/bash\nexit 0\n' > "$BUILD_PREFIX/bin/update-mime-database"
+chmod +x "$BUILD_PREFIX/bin/update-mime-database"
 
 if [[ "$CONDA_BUILD_CROSS_COMPILATION" == "1" ]]; then
   unset _CONDA_PYTHON_SYSCONFIGDATA_NAME
