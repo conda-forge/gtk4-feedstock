@@ -1,26 +1,16 @@
-From 914cb8dc665e294e6ffce32b034e0606866b9dde Mon Sep 17 00:00:00 2001
-From: Dan Yeaw <dan@yeaw.me>
-Date: Sat, 7 Mar 2026 15:51:20 -0500
-Subject: [PATCH] win32: make dcomp opt-in via GDK_WIN32_USE_DCOMP
-
-Direct Composition (DComp) causes black border to appear around windows
-with certain video card configurations. Switch from opt-out with
-GDK_DISABLE=dcomp to opt-in with GDK_WIN32_USE_DCOMP until D3D12 becomes
-the default.
-
-Closes #7567
-
-Part-of: <https://gitlab.gnome.org/GNOME/gtk/-/merge_requests/9593>
----
- gdk/gdk.c                    |  2 +-
- gdk/gdkdebugprivate.h        | 62 ++++++++++++++++++------------------
- gdk/win32/gdkdisplay-win32.c |  6 +++-
- 3 files changed, 37 insertions(+), 33 deletions(-)
-
 diff --git a/gdk/gdk.c b/gdk/gdk.c
-index dbf234c7584..21c5f557065 100644
+index dbf234c758..935a5e9680 100644
 --- a/gdk/gdk.c
 +++ b/gdk/gdk.c
+@@ -19,7 +19,7 @@
+  * Modified by the GTK+ Team and others 1997-2000.  See the AUTHORS
+  * file for a list of people on the GTK+ Team.  See the ChangeLog
+  * files for a list of changes.  These files are distributed with
+- * GTK+ at ftp://ftp.gtk.org/pub/gtk/. 
++ * GTK+ at ftp://ftp.gtk.org/pub/gtk/.
+  */
+ 
+ #include "config.h"
 @@ -148,6 +148,7 @@ static const GdkDebugKey gdk_debug_keys[] = {
    { "no-vsync",        GDK_DEBUG_NO_VSYNC, "Repaint instantly (uses 100% CPU with animations)" },
    { "color-mgmt",      GDK_DEBUG_COLOR_MANAGEMENT, "Enable color management" },
@@ -38,7 +28,7 @@ index dbf234c7584..21c5f557065 100644
    { "threads",    GDK_FEATURE_THREADS,          "Disable threads where possible" },
    { "icon-nodes", GDK_FEATURE_ICON_NODES,       "Disable svg->node conversion for symbolic icons" },
 diff --git a/gdk/gdkdebugprivate.h b/gdk/gdkdebugprivate.h
-index 12c8b78cbe5..62ece82233c 100644
+index 12c8b78cbe..62ece82233 100644
 --- a/gdk/gdkdebugprivate.h
 +++ b/gdk/gdkdebugprivate.h
 @@ -25,32 +25,33 @@
@@ -120,10 +110,10 @@ index 12c8b78cbe5..62ece82233c 100644
  extern guint _gdk_debug_flags;
  
 diff --git a/gdk/win32/gdkdisplay-win32.c b/gdk/win32/gdkdisplay-win32.c
-index 8ec9114d7cd..ff0f8d3a22f 100644
+index 8ec9114d7c..5f6e958ed3 100644
 --- a/gdk/win32/gdkdisplay-win32.c
 +++ b/gdk/win32/gdkdisplay-win32.c
-@@ -517,7 +517,11 @@ gdk_win32_display_init_dcomp (GdkWin32Display *self)
+@@ -517,9 +517,13 @@ gdk_win32_display_init_dcomp (GdkWin32Display *self)
    const GUID my_IID_IDCompositionDevice = { 0xC37EA93A,0xE7AA,0x450D, { 0xB1,0x6F,0x97,0x46,0xCB,0x04,0x07,0xF3 } };
    IDXGIDevice *dxgi_device;
  
@@ -134,8 +124,29 @@ index 8ec9114d7cd..ff0f8d3a22f 100644
 +   * becomes the default on Windows. */
 +  if (!GDK_DISPLAY_DEBUG_CHECK (GDK_DISPLAY (self), DCOMP))
      return;
-   
+-  
++
    hr_warn (ID3D11Device_QueryInterface (self->d3d11_device, &IID_IDXGIDevice, (void **) &dxgi_device));
--- 
-GitLab
-
+ 
+   hr_warn (DCompositionCreateDevice (dxgi_device, &my_IID_IDCompositionDevice, (void **) &self->dcomp_device));
+@@ -557,7 +561,7 @@ gdk_win32_display_init_d3d (GdkWin32Display  *self,
+               break;
+             }
+         }
+-      
++
+       if (i == G_N_ELEMENTS (errors))
+         *error = g_error_copy (errors[0]);
+     }
+@@ -574,9 +578,9 @@ gdk_win32_display_init_d3d (GdkWin32Display  *self,
+  *
+  * Gets the Direct Composition device used to composite
+  * the UI.
+- * 
++ *
+  * If Direct Composition is not supported, NULL is returned.
+- * 
++ *
+  * Note that Wine does not support Direct Composition at this point.
+  *
+  * Returns: (nullable): the device
