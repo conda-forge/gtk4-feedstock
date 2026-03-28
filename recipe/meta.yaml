@@ -160,6 +160,7 @@ about:
 
 extra:
   recipe-maintainers:
+    - danyeaw
     - ryanvolz
     - pkgw
     - tschoonj
