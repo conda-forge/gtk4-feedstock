@@ -1,5 +1,5 @@
 {% set name = "gtk" %}
-{% set version = "4.22.2" %}
+{% set version = "4.22.3" %}
 {% set version_majmin = '.'.join(version.split('.', 2)[:2]) %}
 
 package:
@@ -8,7 +8,7 @@ package:
 
 source:
   url: https://download.gnome.org/sources/{{ name }}/{{ version_majmin }}/{{ name }}-{{ version }}.tar.xz
-  sha256: b1c987370a0c30780cde351bdbee02eef816728f1c1c2ec7c8093281c0709ee8
+  sha256: 0145a4a243b283303d90bdfd2d8a0c6b9106b880390b63c161d9505672f9df38
   patches:
     - patches/001-win32-fix-black-borders.patch
 
