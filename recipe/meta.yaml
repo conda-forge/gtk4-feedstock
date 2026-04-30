@@ -1,5 +1,5 @@
 {% set name = "gtk" %}
-{% set version = "4.22.3" %}
+{% set version = "4.22.4" %}
 {% set version_majmin = '.'.join(version.split('.', 2)[:2]) %}
 
 package:
@@ -8,12 +8,12 @@ package:
 
 source:
   url: https://download.gnome.org/sources/{{ name }}/{{ version_majmin }}/{{ name }}-{{ version }}.tar.xz
-  sha256: 0145a4a243b283303d90bdfd2d8a0c6b9106b880390b63c161d9505672f9df38
+  sha256: 51bd9f60c7d23a665a556c7364c21fb2e4e282566b3e7e092455e8f910330893
   patches:
     - patches/001-win32-fix-black-borders.patch
 
 build:
-  number: 1
+  number: 0
   run_exports:
     - {{ pin_subpackage('gtk4', max_pin='x') }}
     # gtk apps need at least a default icon set for fallback
