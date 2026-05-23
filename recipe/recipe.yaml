@@ -121,57 +121,44 @@ requirements:
 tests:
   - script:
       # check that the binaries can run
-      - gtk4-encode-symbolic-svg --help
+      - if: unix
+        then: gtk4-encode-symbolic-svg --help
       - if: unix
         then: gtk4-launch --help
       - gtk4-update-icon-cache --help
-      # other binaries require a display, check that they get installed
-      - if: unix
-        then:
-          - command -v gtk4-builder-tool
-          - command -v gtk4-query-settings
-      - if: win
-        then:
-          - where gtk4-builder-tool
-          - where gtk4-query-settings
-      # verify that (some) headers get installed
-      - if: unix
-        then:
-          - test -f $PREFIX/include/gtk-4.0/gdk/gdk.h
-          - test -f $PREFIX/include/gtk-4.0/gsk/gsk.h
-          - test -f $PREFIX/include/gtk-4.0/gtk/gtk.h
-      - if: win
-        then:
-          - if not exist %PREFIX%\Library\include\gtk-4.0\gdk\gdk.h exit 1
-          - if not exist %PREFIX%\Library\include\gtk-4.0\gsk\gsk.h exit 1
-          - if not exist %PREFIX%\Library\include\gtk-4.0\gtk\gtk.h exit 1
-      # verify that pkgconfig files get installed
-      - if: unix
-        then: test -f $PREFIX/lib/pkgconfig/gtk4.pc
-      - if: win
-        then: if not exist %PREFIX%\Library\lib\pkgconfig\gtk4.pc exit 1
-      - if: unix
-        then: test -f $PREFIX/lib/pkgconfig/gtk4-unix-print.pc
-      - if: linux
-        then: test -f $PREFIX/lib/pkgconfig/gtk4-x11.pc
-      - if: osx
-        then: test -f $PREFIX/lib/pkgconfig/gtk4-macos.pc
-      - if: win
-        then: if not exist %PREFIX%\Library\lib\pkgconfig\gtk4-win32.pc exit 1
-      # check gi typelibs
-      - if: unix
-        then:
-          - test -f $PREFIX/lib/girepository-1.0/Gdk-4.0.typelib
-          - test -f $PREFIX/lib/girepository-1.0/Gsk-4.0.typelib
-          - test -f $PREFIX/lib/girepository-1.0/Gtk-4.0.typelib
-      - if: win
-        then:
-          - if not exist %PREFIX%\Library\lib\girepository-1.0\Gdk-4.0.typelib exit 1
-          - if not exist %PREFIX%\Library\lib\girepository-1.0\Gsk-4.0.typelib exit 1
-          - if not exist %PREFIX%\Library\lib\girepository-1.0\Gtk-4.0.typelib exit 1
     requirements:
       run:
         - pygobject
+  - package_contents:
+      # other binaries require a display, check that they get installed
+      bin:
+        - gtk4-builder-tool
+        - gtk4-query-settings
+      # verify that (some) headers get installed
+      include:
+        - gtk-4.0/gdk/gdk.h
+        - gtk-4.0/gsk/gsk.h
+        - gtk-4.0/gtk/gtk.h
+      # verify that pkgconfig files and gi typelibs get installed
+      files:
+        - if: unix
+          then:
+            - lib/pkgconfig/gtk4.pc
+            - lib/pkgconfig/gtk4-unix-print.pc
+            - lib/girepository-1.0/Gdk-4.0.typelib
+            - lib/girepository-1.0/Gsk-4.0.typelib
+            - lib/girepository-1.0/Gtk-4.0.typelib
+        - if: linux
+          then: lib/pkgconfig/gtk4-x11.pc
+        - if: osx
+          then: lib/pkgconfig/gtk4-macos.pc
+        - if: win
+          then:
+            - Library/lib/pkgconfig/gtk4.pc
+            - Library/lib/pkgconfig/gtk4-win32.pc
+            - Library/lib/girepository-1.0/Gdk-4.0.typelib
+            - Library/lib/girepository-1.0/Gsk-4.0.typelib
+            - Library/lib/girepository-1.0/Gtk-4.0.typelib
 
 about:
   homepage: http://www.gtk.org/
