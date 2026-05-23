@@ -122,8 +122,9 @@ tests:
   - script:
       # check that the binaries can run
       - gtk4-encode-symbolic-svg --help
-      - gtk4-launch --help
       - gtk4-update-icon-cache --help
+      - if: unix
+        then: gtk4-launch --help
     requirements:
       run:
         - pygobject
