@@ -121,10 +121,8 @@ requirements:
 tests:
   - script:
       # check that the binaries can run
-      - if: unix
-        then: gtk4-encode-symbolic-svg --help
-      - if: unix
-        then: gtk4-launch --help
+      - gtk4-encode-symbolic-svg --help
+      - gtk4-launch --help
       - gtk4-update-icon-cache --help
     requirements:
       run:
