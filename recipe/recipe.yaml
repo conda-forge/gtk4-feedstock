@@ -1,0 +1,179 @@
+context:
+  name: gtk
+  version: "4.22.4"
+  version_majmin: ${{ (version | split('.'))[:2] | join('.') }}
+
+package:
+  name: gtk4  # note customization
+  version: ${{ version }}
+
+source:
+  url: https://download.gnome.org/sources/${{ name }}/${{ version_majmin }}/${{ name }}-${{ version }}.tar.xz
+  sha256: 51bd9f60c7d23a665a556c7364c21fb2e4e282566b3e7e092455e8f910330893
+  patches:
+    - patches/001-win32-fix-black-borders.patch
+
+build:
+  number: 2
+  dynamic_linking:
+    missing_dso_allowlist:
+      - if: osx
+        then: /usr/lib/libcups.2.dylib
+
+requirements:
+  run_exports:
+    - ${{ pin_subpackage('gtk4', upper_bound='x') }}
+    # gtk apps need at least a default icon set for fallback
+    - adwaita-icon-theme
+  ignore_run_exports:
+    # We need to pull in metapackages for these below to get devel files, but
+    # don't depend on these libraries directly:
+    by_name:
+      - libexpat
+      - liblzma
+    from_package:
+      - libxml2-devel
+  build:
+    - meson
+    - ninja
+    - gobject-introspection
+    - packaging  # workaround: this is needed for glib's gdbus-codegen
+    - pkg-config
+    - ${{ compiler('c') }}
+    - ${{ stdlib("c") }}
+    - ${{ compiler("cxx") }}
+    - if: linux
+      then: libegl-devel
+    - if: build_platform != target_platform
+      then:
+        - cairo
+        - expat
+        - epoxy
+        - freetype
+        - gdk-pixbuf
+        - gettext
+        - glib
+        - harfbuzz
+        - libtiff
+        - libpng
+        - libjpeg-turbo
+        - liblzma-devel
+        - zlib
+        - libgraphene
+        - librsvg
+        - libxml2-devel
+        - pango
+    - if: linux and build_platform != target_platform
+      then: libdrm
+  host:
+    - cairo
+    - expat
+    - epoxy
+    - freetype
+    - gdk-pixbuf
+    - if: osx
+      then: gettext
+    - glib
+    - harfbuzz
+    - libtiff
+    - libpng
+    - libjpeg-turbo
+    - liblzma-devel
+    - zlib
+    - libgraphene
+    - if: win
+      then: libiconv
+    - librsvg
+    - libxml2-devel
+    - pango
+    - if: linux
+      then:
+        - libcups
+        - libdrm
+        - libxkbcommon
+        - wayland
+        - wayland-protocols
+        - xorg-libice
+        - xorg-libsm
+        - xorg-libx11
+        - xorg-libxcomposite
+        - xorg-libxcursor
+        - xorg-libxdamage
+        - xorg-libxext
+        - xorg-libxi
+        - xorg-libxinerama
+        - xorg-libxfixes
+        - xorg-libxrandr
+        - xorg-libxrender
+        - xorg-libxtst
+        - xorg-xorgproto
+  run:
+    - hicolor-icon-theme
+    - pango
+    - libgraphene
+    - fribidi
+    - fontconfig
+    - if: linux
+      then: ${{ pin_compatible('libcups') }}
+    # The post-link script uses gio-querymodules from glib-tools
+    - glib-tools
+
+tests:
+  - script:
+      # check that the binaries can run
+      - gtk4-encode-symbolic-svg --help
+      - gtk4-update-icon-cache --help
+      - if: unix
+        then: gtk4-launch --help
+    requirements:
+      run:
+        - pygobject
+  - package_contents:
+      # other binaries require a display, check that they get installed
+      bin:
+        - gtk4-builder-tool
+        - gtk4-query-settings
+      # verify that (some) headers get installed
+      include:
+        - gtk-4.0/gdk/gdk.h
+        - gtk-4.0/gsk/gsk.h
+        - gtk-4.0/gtk/gtk.h
+      # verify that pkgconfig files and gi typelibs get installed
+      files:
+        - if: unix
+          then:
+            - lib/pkgconfig/gtk4.pc
+            - lib/pkgconfig/gtk4-unix-print.pc
+            - lib/girepository-1.0/Gdk-4.0.typelib
+            - lib/girepository-1.0/Gsk-4.0.typelib
+            - lib/girepository-1.0/Gtk-4.0.typelib
+        - if: linux
+          then: lib/pkgconfig/gtk4-x11.pc
+        - if: osx
+          then: lib/pkgconfig/gtk4-macos.pc
+        - if: win
+          then:
+            - Library/lib/pkgconfig/gtk4.pc
+            - Library/lib/pkgconfig/gtk4-win32.pc
+            - Library/lib/girepository-1.0/Gdk-4.0.typelib
+            - Library/lib/girepository-1.0/Gsk-4.0.typelib
+            - Library/lib/girepository-1.0/Gtk-4.0.typelib
+
+about:
+  homepage: http://www.gtk.org/
+  license: LGPL-2.0-or-later
+  license_file: COPYING
+  summary: Version 4 of the Gtk+ graphical toolkit
+  description: |
+    GTK is a multi-platform toolkit for creating graphical user interfaces.
+    Offering a complete set of widgets, GTK is suitable for projects ranging
+    from small one-off projects to complete application suites.
+  documentation: https://developer.gnome.org/gtk4/
+  repository: https://gitlab.gnome.org/GNOME/gtk
+
+extra:
+  recipe-maintainers:
+    - danyeaw
+    - ryanvolz
+    - pkgw
+    - tschoonj

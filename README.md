@@ -17,7 +17,6 @@ GTK is a multi-platform toolkit for creating graphical user interfaces.
 Offering a complete set of widgets, GTK is suitable for projects ranging
 from small one-off projects to complete application suites.
 
-
 Current build status
 ====================
 
