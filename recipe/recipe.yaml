@@ -14,7 +14,7 @@ source:
     - patches/001-win32-fix-black-borders.patch
 
 build:
-  number: 2
+  number: 3
   dynamic_linking:
     missing_dso_allowlist:
       - if: osx
@@ -63,6 +63,8 @@ requirements:
         - librsvg
         - libxml2-devel
         - pango
+        - libvulkan-loader
+        - libvulkan-headers
     - if: linux and build_platform != target_platform
       then: libdrm
   host:
@@ -86,6 +88,8 @@ requirements:
     - librsvg
     - libxml2-devel
     - pango
+    - libvulkan-loader
+    - libvulkan-headers
     - if: linux
       then:
         - libcups

@@ -35,7 +35,6 @@ set ^"MESON_OPTIONS=^
   -Dbuild-tests=false ^
   -Dbuild-testsuite=false ^
   -Dmedia-gstreamer=disabled ^
-  -Dvulkan=disabled ^
  ^"
 
 :: configure build using meson
