@@ -14,7 +14,7 @@ source:
     - patches/001-win32-fix-black-borders.patch
 
 build:
-  number: 3
+  number: 4
   dynamic_linking:
     missing_dso_allowlist:
       - if: osx
