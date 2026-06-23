@@ -2,16 +2,7 @@
 
 set -ex
 
-# get meson to find pkg-config when cross compiling
-export PKG_CONFIG=$BUILD_PREFIX/bin/pkg-config
-
-# need to find gobject-introspection-1.0 as a "native" (build) pkg-config dep
-# meson uses PKG_CONFIG_PATH to search when not cross-compiling and
-# PKG_CONFIG_PATH_FOR_BUILD when cross-compiling,
-# so add the build prefix pkgconfig path to the appropriate variables
-export PKG_CONFIG_PATH_FOR_BUILD=$BUILD_PREFIX/lib/pkgconfig
 export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$BUILD_PREFIX/lib/pkgconfig
-
 export XDG_DATA_DIRS=${XDG_DATA_DIRS}:$PREFIX/share
 
 meson_config_args=(
@@ -39,69 +30,6 @@ export DESTDIR="/"
 printf '#!/bin/bash\nexit 0\n' > "$BUILD_PREFIX/bin/update-mime-database"
 chmod +x "$BUILD_PREFIX/bin/update-mime-database"
 
-if [[ "$CONDA_BUILD_CROSS_COMPILATION" == "1" ]]; then
-  unset _CONDA_PYTHON_SYSCONFIGDATA_NAME
-  (
-    mkdir -p native-build
-
-    export CC=$CC_FOR_BUILD
-    export OBJC=$OBJC_FOR_BUILD
-    export AR="$($CC_FOR_BUILD -print-prog-name=ar)"
-    export NM="$($CC_FOR_BUILD -print-prog-name=nm)"
-    export LDFLAGS=${LDFLAGS//$PREFIX/$BUILD_PREFIX}
-    export PKG_CONFIG_PATH=${BUILD_PREFIX}/lib/pkgconfig
-
-    # Unset them as we're ok with builds that are either slow or non-portable
-    unset CFLAGS
-    unset CPPFLAGS
-    export host_alias=$build_alias
-
-    native_extra_args=()
-    if test $(uname) == 'Linux' ; then
-      # On Linux, the x11/wayland libs are only in $PREFIX (host arch), not
-      # $BUILD_PREFIX, so disable those backends and use broadway instead.
-      cat <<EOF > $SRC_DIR/native_file.txt
-[binaries]
-ld = '$($CC_FOR_BUILD -print-prog-name=ld)'
-objcopy = '$($CC_FOR_BUILD -print-prog-name=objcopy)'
-EOF
-      native_extra_args+=(
-        --native-file=$SRC_DIR/native_file.txt
-        -Dx11-backend=false
-        -Dwayland-backend=false
-        -Dbroadway-backend=true
-      )
-    fi
-
-    meson setup native-build \
-        "${meson_config_args[@]}" \
-        "${native_extra_args[@]}" \
-        --buildtype=release \
-        --prefix=$BUILD_PREFIX \
-        -Dlibdir=lib \
-        --wrap-mode=nofallback \
-        || (cat native-build/meson-logs/meson-log.txt; false)
-
-    # print full meson configuration
-    meson configure native-build
-
-    # This script would generate the functions.txt and dump.xml and save them
-    # This is loaded in the native build. We assume that the functions exported
-    # by glib are the same for the native and cross builds
-    export GI_CROSS_LAUNCHER=$BUILD_PREFIX/libexec/gi-cross-launcher-save.sh
-    ninja -v -C native-build -j ${CPU_COUNT}
-    ninja -C native-build install -j ${CPU_COUNT}
-
-    # Store generated introspection data for the cross build
-    mkdir -p introspection/lib
-    cp -ap $BUILD_PREFIX/lib/girepository-1.0 introspection/lib
-    mkdir -p introspection/share
-    cp -ap $BUILD_PREFIX/share/gir-1.0 introspection/share
-  )
-
-  meson_config_args+=("-Dintrospection=disabled")
-fi
-
 meson setup builddir \
     ${MESON_ARGS} \
     --default-library=shared \
@@ -115,10 +43,3 @@ meson setup builddir \
 meson configure builddir
 ninja -v -C builddir -j ${CPU_COUNT}
 ninja -C builddir install -j ${CPU_COUNT}
-
-if [[ "$CONDA_BUILD_CROSS_COMPILATION" == "1" ]]; then
-  # Install GIR/typelib files from the native build
-  cp -ap introspection/lib/girepository-1.0 $PREFIX/lib
-  cp -ap introspection/share/gir-1.0 $PREFIX/share
-fi
-
