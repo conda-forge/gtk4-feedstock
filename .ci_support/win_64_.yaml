@@ -31,11 +31,11 @@ librsvg:
 libtiff:
 - '4.7'
 libxml2_devel:
-- '2.14'
+- '2.15'
 pango:
 - '1'
 shaderc:
-- '2026.2'
+- '2026.3'
 target_platform:
 - win-64
 zlib:
