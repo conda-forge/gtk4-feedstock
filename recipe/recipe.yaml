@@ -1,6 +1,6 @@
 context:
   name: gtk
-  version: "4.22.5"
+  version: "4.24.0"
   version_majmin: ${{ (version | split('.'))[:2] | join('.') }}
 
 package:
@@ -9,9 +9,7 @@ package:
 
 source:
   url: https://download.gnome.org/sources/${{ name }}/${{ version_majmin }}/${{ name }}-${{ version }}.tar.xz
-  sha256: 7fd725deb2cb3f8dc218ad862c5056ff8548f49d3b0e4081796e444c22d19686
-  patches:
-    - patches/001-win32-fix-black-borders.patch
+  sha256: 28ba4ac1c04f86eac09b79a163cb163a4c2b54442d9f7eccc04679062a581044
 
 build:
   number: 0
@@ -103,7 +101,6 @@ requirements:
 tests:
   - script:
       # check that the binaries can run
-      - gtk4-encode-symbolic-svg --help
       - gtk4-update-icon-cache --help
       - if: unix
         then: gtk4-launch --help
