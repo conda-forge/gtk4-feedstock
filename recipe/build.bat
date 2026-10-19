@@ -50,3 +50,22 @@ if errorlevel 1 exit 1
 
 ninja -C builddir install -j %CPU_COUNT%
 if errorlevel 1 exit 1
+
+:: Compile only GTK-owned schemas, without writing the shared environment cache.
+mkdir "%LIBRARY_PREFIX%\share\gtk-4.0\schemas" "builddir\gtk4-schemas"
+if errorlevel 1 exit 1
+copy /Y "gtk\*.gschema.xml" "builddir\gtk4-schemas\"
+if errorlevel 1 exit 1
+copy /Y "demos\gtk-demo\*.gschema.xml" "builddir\gtk4-schemas\"
+if errorlevel 1 exit 1
+"%BUILD_PREFIX%\Library\bin\glib-compile-schemas.exe" --strict --targetdir="%LIBRARY_PREFIX%\share\gtk-4.0\schemas" "builddir\gtk4-schemas"
+if errorlevel 1 exit 1
+
+if not exist "%PREFIX%\etc\conda\activate.d" mkdir "%PREFIX%\etc\conda\activate.d"
+if not exist "%PREFIX%\etc\conda\deactivate.d" mkdir "%PREFIX%\etc\conda\deactivate.d"
+for %%S in (bat ps1) do (
+    copy /Y "%RECIPE_DIR%\activate.%%S" "%PREFIX%\etc\conda\activate.d\zz-gtk4_activate.%%S"
+    if errorlevel 1 exit 1
+    copy /Y "%RECIPE_DIR%\deactivate.%%S" "%PREFIX%\etc\conda\deactivate.d\zz-gtk4_deactivate.%%S"
+    if errorlevel 1 exit 1
+)
