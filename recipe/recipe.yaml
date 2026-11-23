@@ -36,7 +36,7 @@ requirements:
     - ninja
     - gobject-introspection
     - packaging  # workaround: this is needed for glib's gdbus-codegen
-    - pkg-config
+    - pkgconf
     - shaderc
     - ${{ compiler('c') }}
     - ${{ stdlib("c") }}
