@@ -52,6 +52,7 @@ requirements:
     - if: osx
       then: gettext
     - glib
+    - gobject-introspection
     - harfbuzz
     - libtiff
     - libpng
