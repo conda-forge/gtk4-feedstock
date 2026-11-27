@@ -17,7 +17,8 @@ assert private in os.environ.get("GSETTINGS_SCHEMA_DIR", "").split(os.pathsep)
 cache = Path(private, "gschemas.compiled")
 before = cache.read_bytes()
 
-# Check activation and restoration with unset, empty and custom search paths.
+# Check activation and restoration with unset, empty and custom search paths,
+# including schema discovery when an earlier directory is present.
 for previous in (None, "", os.pathsep.join(("custom schemas", "other schemas"))):
     env = dict(os.environ, CONDA_PREFIX=str(prefix))
     env.pop("GSETTINGS_SCHEMA_DIR", None)
@@ -25,7 +26,11 @@ for previous in (None, "", os.pathsep.join(("custom schemas", "other schemas")))
         env["GSETTINGS_SCHEMA_DIR"] = previous
     env["EXPECTED_ACTIVE"] = (previous + os.pathsep if previous else "") + private
     env["EXPECTED_RESTORED"] = previous or ""
-    active_check = "import os; assert os.environ['GSETTINGS_SCHEMA_DIR'] == os.environ['EXPECTED_ACTIVE']"
+    active_check = (
+        "import os; assert os.environ['GSETTINGS_SCHEMA_DIR'] == os.environ['EXPECTED_ACTIVE']; "
+        "from gi.repository import Gio; "
+        "assert Gio.SettingsSchemaSource.get_default().lookup('org.gtk.gtk4.Settings.ColorChooser', True) is not None"
+    )
     restored_check = "import os; assert os.environ.get('GSETTINGS_SCHEMA_DIR', '') == os.environ['EXPECTED_RESTORED']; assert 'GTK4_GSETTINGS_SCHEMA_DIR_CONDA_BACKUP' not in os.environ"
     scripts = prefix / "etc/conda"
     if sys.platform == "win32":
