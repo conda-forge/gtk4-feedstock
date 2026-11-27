@@ -12,7 +12,7 @@ source:
   sha256: 05561abc25d1b1400136bf79ab68830cb4b053d1922ae97e551b3f19755bf3cb
 
 build:
-  number: 0
+  number: 1
   dynamic_linking:
     missing_dso_allowlist:
       - if: osx
@@ -35,6 +35,7 @@ requirements:
     - meson
     - ninja
     - gobject-introspection
+    - glib-tools
     - packaging  # workaround: this is needed for glib's gdbus-codegen
     - pkgconf
     - shaderc
@@ -105,6 +106,10 @@ tests:
       - gtk4-update-icon-cache --help
       - if: unix
         then: gtk4-launch --help
+      - python run_test.py
+    files:
+      recipe:
+        - run_test.py
     requirements:
       run:
         - pygobject
@@ -122,6 +127,11 @@ tests:
       files:
         - if: unix
           then:
+            - share/gtk-4.0/schemas/gschemas.compiled
+            - etc/conda/activate.d/zz-gtk4_activate.sh
+            - etc/conda/activate.d/zz-gtk4_activate.fish
+            - etc/conda/deactivate.d/zz-gtk4_deactivate.sh
+            - etc/conda/deactivate.d/zz-gtk4_deactivate.fish
             - lib/pkgconfig/gtk4.pc
             - lib/pkgconfig/gtk4-unix-print.pc
             - lib/girepository-1.0/Gdk-4.0.typelib
@@ -133,6 +143,11 @@ tests:
           then: lib/pkgconfig/gtk4-macos.pc
         - if: win
           then:
+            - Library/share/gtk-4.0/schemas/gschemas.compiled
+            - etc/conda/activate.d/zz-gtk4_activate.bat
+            - etc/conda/activate.d/zz-gtk4_activate.ps1
+            - etc/conda/deactivate.d/zz-gtk4_deactivate.bat
+            - etc/conda/deactivate.d/zz-gtk4_deactivate.ps1
             - Library/lib/pkgconfig/gtk4.pc
             - Library/lib/pkgconfig/gtk4-win32.pc
             - Library/lib/girepository-1.0/Gdk-4.0.typelib
